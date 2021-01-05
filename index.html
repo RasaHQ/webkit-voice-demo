@@ -1,0 +1,40 @@
+<head>
+</head>
+<body>
+	<button id="record">Record</button>
+	<div id="output"></div>
+</body>
+
+<script type="text/javascript">
+	const recognition = new webkitSpeechRecognition();
+	recognition.lang = "en-US";
+	recognition.continuous = false;
+	recognition.interimResults = false;
+
+	document.getElementById("record").onclick = function() {
+	  recognition.start();
+	  console.log('Ready to receive a command.');
+	}
+
+	recognition.onresult = function(event) {
+	  var transcript = event.results[0][0].transcript;
+	  console.log(transcript)
+	  console.log('Confidence: ' + event.results[0][0].confidence);
+
+	  fetch("/api/", {
+			method:"POST",
+			body: JSON.stringify({text: transcript})
+		})
+		.then(result => {
+			result.json().then(b => {
+				console.log(b);
+				var textnode = document.createElement("p");
+				textnode.innerText = `${transcript} - ${b.intent.name}`;
+	  			document.getElementById("output").appendChild(textnode)
+			})
+		})
+		.catch(error => {
+			console.log(error);
+		});
+	}
+</script>
