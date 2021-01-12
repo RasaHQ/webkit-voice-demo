@@ -10,6 +10,10 @@ your own front-end javascript tools on top of Rasa.
 tools to Rasa. Note that these tools are experimental and that
 browser support will vary. 
 
+Note that this demo was built with Rasa 2.2 in mind. Also note that
+Chrome currently uses Google's backend to parse your audio. This means
+that this demo will be sharing data to a 3rd party. 
+
 ## How to Run 
 
 To run this project locally you'll need to first install all 
@@ -45,3 +49,11 @@ you'll want to point your browser to `chrome://flags/#unsafely-treat-insecure-or
 `localhost:8000` as allowed. 
 2. From here, you might either need to restart your OS/browser. Alternatively
 you can also start a new browser using incognito mode.
+
+## Expanding 
+
+If you want to expand on this demo there are a few things to consider. 
+
+1. Maybe you can trigger specific events in the browser based on the event you get back. 
+2. You might be able to make this work for Non-English. For more information on supported
+languages see [here](https://stackoverflow.com/questions/14257598/what-are-language-codes-in-chromes-implementation-of-the-html5-speech-recogniti).

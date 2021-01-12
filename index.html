@@ -13,16 +13,21 @@
 </body>
 
 <script type="text/javascript">
+	// Set up a new Speech Recognizer
 	const recognition = new webkitSpeechRecognition();
+	// Set the new language setting.
+	// More info here: https://stackoverflow.com/questions/14257598/what-are-language-codes-in-chromes-implementation-of-the-html5-speech-recogniti
 	recognition.lang = "en-US";
 	recognition.continuous = false;
 	recognition.interimResults = false;
 
+	// Start recognizing after the button is clicked.
 	document.getElementById("record").onclick = function() {
 	  recognition.start();
 	  console.log('Ready to receive a command.');
 	}
 
+	// Once a result is parsed, send the parsed text to a Rasa server and update HTML
 	recognition.onresult = function(event) {
 	  var transcript = event.results[0][0].transcript;
 	  console.log(transcript)
