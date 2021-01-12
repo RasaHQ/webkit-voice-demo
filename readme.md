@@ -13,16 +13,14 @@ browser support will vary.
 ## How to Run 
 
 To run this project locally you'll need to first install all 
-the requirements and create a new Rasa project. You can do all
-of this by running a provided make command. 
+the requirements.
 
 ```bash
-make init
+make install
 ```
 
-> If you're only interested in installing the tools you can also 
-> run `make install`. This allows you to copy your own Rasa project
-> without starting a new one.
+> Note that you're free to replace the current Rasa project with 
+> another one instead.
 
 Once this is done you'll need to start two services locally. 
 

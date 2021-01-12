@@ -1,8 +1,15 @@
 <head>
+	<link rel="stylesheet" href="https://unpkg.com/mvp.css">
 </head>
 <body>
-	<button id="record">Record</button>
-	<div id="output"></div>
+<header>
+	<img loading="lazy" width="50" height="61" alt="Rasa Logo" src="https://d33wubrfki0l68.cloudfront.net/70e7a88adf729f18dd46e5010660d16a197b9edb/0004c/static/ef3444fc36faec97ae8bd7bfb568996d/rasa-logo-square.svg">
+	<h1><code>webkitSpeechRecognition</code></h1>
+	<button id="record" style="background-color: #5a17ee; border: 0px;">Record Voice</button>
+	<div id="output">
+
+	</div>
+</header>
 </body>
 
 <script type="text/javascript">
@@ -28,9 +35,9 @@
 		.then(result => {
 			result.json().then(b => {
 				console.log(b);
-				var textnode = document.createElement("p");
-				textnode.innerText = `${transcript} - ${b.intent.name}`;
-	  			document.getElementById("output").appendChild(textnode)
+				var textnode = document.createElement("h2");
+				textnode.innerHTML = `<code>{text: ${transcript}, intent: ${b.intent.name}}</code>`;
+				document.getElementById("output").appendChild(textnode)
 			})
 		})
 		.catch(error => {

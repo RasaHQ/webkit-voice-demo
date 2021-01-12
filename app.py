@@ -1,5 +1,5 @@
 import pathlib
-import json
+import uuid
 from pydantic import BaseModel
 from fastapi import FastAPI, Response, status
 from fastapi.responses import HTMLResponse
@@ -34,7 +34,7 @@ def get_attempt_problem():
 def post_attempt_problem(text: Text):
     body = {
       "text": text.text,
-      "message_id": "b2831e73-1407-4ba0-a861-0f30a42a2a5a"
+      "message_id": str(uuid.uuid4())
     }
     url = "http://localhost:5005/model/parse"
     return rq.post(url, json=body).json()
