@@ -44,7 +44,7 @@ If you're using Chrome then you may need to give explicit permissions
 to allow the browser to record your audio. If you don't want to get 
 blocked it helps to take two steps:
 
-1. As per the guide [here]() 
+1. As per the guide [here](https://medium.com/@Carmichaelize/enabling-the-microphone-camera-in-chrome-for-local-unsecure-origins-9c90c3149339) 
 you'll want to point your browser to `chrome://flags/#unsafely-treat-insecure-origin-as-secure` and flag 
 `localhost:8000` as allowed. 
 2. From here, you might either need to restart your OS/browser. Alternatively
