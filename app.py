@@ -1,12 +1,15 @@
 import pathlib
 import uuid
 from pydantic import BaseModel
-from fastapi import FastAPI, Response, status
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 import requests as rq
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# We want to be flexible in our localhost demo so we'll set
+# very open CORS policies.
 origins = [
     "http://localhost",
     "http://localhost:8000",
@@ -25,13 +28,15 @@ class Text(BaseModel):
     text: str
 
 
-@app.get("/status/")
-def get_attempt_problem():
-    return {"status": "alive"}
+# This endpoint returns our HTML page.
+@app.get("/", response_class=HTMLResponse)
+def index():
+    return HTMLResponse(content=pathlib.Path("index.html").read_text(), status_code=200)
 
 
+# This endpoint will receive texts, proxy to Rasa and return parsed results.
 @app.post("/api/")
-def post_attempt_problem(text: Text):
+def post_attempt(text: Text):
     body = {
       "text": text.text,
       "message_id": str(uuid.uuid4())
@@ -40,6 +45,6 @@ def post_attempt_problem(text: Text):
     return rq.post(url, json=body).json()
 
 
-@app.get("/", response_class=HTMLResponse)
-def index():
-    return HTMLResponse(content=pathlib.Path("index.html").read_text(), status_code=200)
+@app.get("/status/")
+def get_attempt():
+    return {"status": "alive"}

@@ -24,19 +24,24 @@
 	// Start recognizing after the button is clicked.
 	document.getElementById("record").onclick = function() {
 	  recognition.start();
-	  console.log('Ready to receive a command.');
+	  console.log('Listening...');
 	}
 
 	// Once a result is parsed, send the parsed text to a Rasa server and update HTML
 	recognition.onresult = function(event) {
+	  // Log the transcript to the console.
 	  var transcript = event.results[0][0].transcript;
 	  console.log(transcript)
 	  console.log('Confidence: ' + event.results[0][0].confidence);
 
-	  fetch("/api/", {
-			method:"POST",
-			body: JSON.stringify({text: transcript})
-		})
+	  // Generate the Json that we want to send to Rasa.
+	  var payload = {
+		  method:"POST",
+		  body: JSON.stringify({text: transcript})
+	  }
+
+	  // Send the Payload and update page when we get a response
+	  fetch("/api/", payload)
 		.then(result => {
 			result.json().then(b => {
 				console.log(b);
